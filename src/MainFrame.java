@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class MainFrame extends JFrame{
     private JPanel mainPanel = new JPanel();
@@ -13,16 +14,43 @@ public class MainFrame extends JFrame{
     private JMenuItem m5 = new JMenuItem();
     private JMenu menu = new JMenu();
     private JButton newAnnotation = new JButton();
+    final JLabel label = new JLabel();
 
     public MainFrame(){
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        m1.setText("Import File");
+        m1.setText("Open File");
+        m1.addActionListener(actionEvent -> {
+            JFileChooser fileChooser = new JFileChooser();
+            int option = fileChooser.showOpenDialog(this);
+            if(option == JFileChooser.APPROVE_OPTION){
+                File file = fileChooser.getSelectedFile();
+                label.setText("File Saved as: " + file.getName());
+            }else{
+                label.setText("Save command canceled");
+            }
+
+        });
         m2.setText("Export File");
+        m2.addActionListener(actionEvent -> JOptionPane.showMessageDialog(null,"You selected: Export File."));
         m3.setText("Save");
+        m3.addActionListener(actionEvent -> {
+            JOptionPane.showMessageDialog(null,"You selected: Save.");
+        });
         m4.setText("Save As");
+        m4.addActionListener(actionEvent -> {
+            JFileChooser fileChooser = new JFileChooser();
+            int option = fileChooser.showSaveDialog(this);
+            if(option == JFileChooser.APPROVE_OPTION){
+                File file = fileChooser.getSelectedFile();
+                label.setText("File Saved as: " + file.getName());
+            }else{
+                label.setText("Save command canceled");
+            }
+        });
         m5.setText("Exit");
+        m5.addActionListener(actionEvent -> JOptionPane.showMessageDialog(null,"You selected: Exit."));
         menu.setText("Menu");
         JTextArea textArea = new JTextArea(5,40);
         textArea.add(new JLabel());
