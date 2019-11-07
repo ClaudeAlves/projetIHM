@@ -7,11 +7,11 @@ public class MainFrame extends JFrame{
     private JPanel imagePanel = new JPanel();
     private JScrollPane annotationPanel = new JScrollPane();
     private JMenuBar menuBar = new JMenuBar();
-    private JMenuItem m1 = new JMenuItem();
-    private JMenuItem m2 = new JMenuItem();
-    private JMenuItem m3 = new JMenuItem();
-    private JMenuItem m4 = new JMenuItem();
-    private JMenuItem m5 = new JMenuItem();
+    private JMenuItem importMenuItem = new JMenuItem();
+    private JMenuItem exportMenuItem = new JMenuItem();
+    private JMenuItem saveMenuItem = new JMenuItem();
+    private JMenuItem saveAsMenuItem = new JMenuItem();
+    private JMenuItem exitMenuItem = new JMenuItem();
     private JMenu menu = new JMenu();
     private JButton newAnnotation = new JButton();
     final JLabel label = new JLabel();
@@ -20,8 +20,8 @@ public class MainFrame extends JFrame{
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        m1.setText("Open File");
-        m1.addActionListener(actionEvent -> {
+        importMenuItem.setText("Import File");
+        importMenuItem.addActionListener(actionEvent -> {
             JFileChooser fileChooser = new JFileChooser();
             int option = fileChooser.showOpenDialog(this);
             if(option == JFileChooser.APPROVE_OPTION){
@@ -32,14 +32,14 @@ public class MainFrame extends JFrame{
             }
 
         });
-        m2.setText("Export File");
-        m2.addActionListener(actionEvent -> JOptionPane.showMessageDialog(null,"You selected: Export File."));
-        m3.setText("Save");
-        m3.addActionListener(actionEvent -> {
+        exportMenuItem.setText("Export File");
+        exportMenuItem.addActionListener(actionEvent -> JOptionPane.showMessageDialog(null,"You selected: Export File."));
+        saveMenuItem.setText("Save");
+        saveMenuItem.addActionListener(actionEvent -> {
             JOptionPane.showMessageDialog(null,"You selected: Save.");
         });
-        m4.setText("Save As");
-        m4.addActionListener(actionEvent -> {
+        saveAsMenuItem.setText("Save As");
+        saveAsMenuItem.addActionListener(actionEvent -> {
             JFileChooser fileChooser = new JFileChooser();
             int option = fileChooser.showSaveDialog(this);
             if(option == JFileChooser.APPROVE_OPTION){
@@ -49,8 +49,10 @@ public class MainFrame extends JFrame{
                 label.setText("Save command canceled");
             }
         });
-        m5.setText("Exit");
-        m5.addActionListener(actionEvent -> JOptionPane.showMessageDialog(null,"You selected: Exit."));
+        exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(actionEvent -> {
+            System.exit(0);
+        });
         menu.setText("Menu");
         JTextArea textArea = new JTextArea(5,40);
         textArea.add(new JLabel());
@@ -66,11 +68,11 @@ public class MainFrame extends JFrame{
         this.setContentPane(mainPanel);
 
 
-        menu.add(m1);
-        menu.add(m2);
-        menu.add(m3);
-        menu.add(m4);
-        menu.add(m5);
+        menu.add(importMenuItem);
+        menu.add(exportMenuItem);
+        menu.add(saveMenuItem);
+        menu.add(saveAsMenuItem);
+        menu.add(exitMenuItem);
         menuBar.add(menu);
         menuBar.add(newAnnotation);
         mainPanel.add(annotationPanel, BorderLayout.EAST);
