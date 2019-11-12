@@ -11,9 +11,7 @@ import javafx.scene.image.ImageView;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -22,20 +20,18 @@ import java.awt.*;
 import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 
 public class Controller {
     public ImageView imageView;
     public Pane drawingPanel;
     public ScrollPane labelPane;
     public ColorPicker colorPicker;
-    public ListView listLabel;
+    public ListView listView;
     public Pane mainPanel;
     private Point startingPoint = new Point();
     private Point endingPoint = new Point();
     private Rectangle selectionRectangle = new Rectangle();
     private Stage stage = new Stage();
-    private ArrayList<TextField> labels = new ArrayList<>();
     private boolean newAnnotation;
     private File imageFile = null;
     private File whereToSave = null;
@@ -142,9 +138,10 @@ public class Controller {
             endingPoint = null;
             newAnnotation = false;
             TextField labelField = new TextField();
-            listLabel.getItems().add(labelField);
             labelField.requestFocus();
             mainPanel.setCursor(Cursor.DEFAULT);
+            Annotation temp = new Annotation(new TextField("NewAnnotation"), selectionRectangle, new Label());
+            temp.update();
         }
 
     }
@@ -159,5 +156,37 @@ public class Controller {
     public static boolean isEmpty(ImageView imageView) {
         Image image = imageView.getImage();
         return image == null || image.isError();
+    }
+
+    private class Annotation {
+        private TextField textField;
+        private Rectangle rectangle;
+        private Label label;
+
+        Annotation(TextField textField, Rectangle rectangle, Label label) {
+            this.textField = textField;
+            this.rectangle = rectangle;
+            this.label = label;
+
+            listView.getItems().add(this.textField);
+            this.textField.requestFocus();
+        }
+
+        public Label getLabel() {
+            return label;
+        }
+        public Rectangle getRectangle() {
+            return rectangle;
+        }
+        public TextField getTextField() {
+            return textField;
+        }
+        public void update() {
+            label.setText(textField.getText());
+        }
+        public void detach() {
+            listView.getItems().remove(this.textField);
+        }
+
     }
 }
