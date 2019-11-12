@@ -32,7 +32,7 @@
       </MenuBar>
       <ScrollPane fx:id="labelPane" fitToHeight="true" fitToWidth="true" layoutX="1341.0" layoutY="29.0" prefHeight="870.0" prefWidth="245.0">
          <content>
-            <ListView fx:id="listLabel" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" />
          </content></ScrollPane>
       <Button layoutX="15.0" layoutY="850.0" mnemonicParsing="false" onAction="#setNewAnnotation" prefHeight="30.0" prefWidth="120.0" text="New Annotation" />
       <ColorPicker fx:id="colorPicker" layoutX="150.0" layoutY="850.0" prefHeight="30.0" prefWidth="100.0" promptText="Color" />
