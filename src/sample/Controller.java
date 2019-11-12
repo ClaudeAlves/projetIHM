@@ -111,11 +111,10 @@ public class Controller {
 
     public void mouseDragged(MouseEvent mouseEvent){
         if(newAnnotation) {
-
             endingPoint = new Point((int) mouseEvent.getX(), (int) mouseEvent.getY());
 
-            selectionRectangle.setWidth(Math.abs(endingPoint.x >= imageView.getFitWidth() ? imageView.getFitWidth() - startingPoint.x : mouseEvent.getX() - startingPoint.x));
-            selectionRectangle.setHeight(Math.abs(endingPoint.y >= imageView.getFitHeight() ? imageView.getFitHeight() - startingPoint.y : mouseEvent.getY() - startingPoint.y));
+            selectionRectangle.setWidth(Math.abs(endingPoint.x>=imageView.getFitWidth() ? imageView.getFitWidth()-startingPoint.x : mouseEvent.getX()-startingPoint.x));
+            selectionRectangle.setHeight(Math.abs(endingPoint.y>=imageView.getFitHeight() ? imageView.getFitHeight()-startingPoint.y : mouseEvent.getY()-startingPoint.y));
 
             selectionRectangle.setX(Math.min(startingPoint.x, endingPoint.x >= 0 ? mouseEvent.getX() : 0));
             selectionRectangle.setY(Math.min(startingPoint.y, endingPoint.y >= 0 ? mouseEvent.getY() : 0));
