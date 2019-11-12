@@ -54,7 +54,7 @@ public class Controller {
     public void exportFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Export image");
-        if(imageFile != null) {
+        if(!isEmpty(imageView)) {
             whereToSave = chooser.showSaveDialog(stage);
             if (whereToSave != null) {
 
@@ -67,14 +67,13 @@ public class Controller {
     }
 
     public void save(ActionEvent actionEvent) {
-        if(whereToSave == null) {
-            if(!isEmpty(imageView)) {
+        if(!isEmpty(imageView)) {
+            if(whereToSave == null) {
                 saveAs(actionEvent);
             } else {
-
             }
         } else {
-            // TODO : SAVE
+            alerting("Nothing has been loaded");
         }
     }
 
