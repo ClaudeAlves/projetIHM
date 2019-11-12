@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -105,6 +106,7 @@ public class Controller {
     public void setNewAnnotation(){
         if(imageFile != null) {
             newAnnotation = true;
+            mainPanel.setCursor(Cursor.CROSSHAIR);
         }
     }
 
@@ -115,6 +117,7 @@ public class Controller {
             selectionRectangle.setX(startingPoint.x);
             selectionRectangle.setY(startingPoint.y);
             selectionRectangle.setStroke(colorPicker.getValue());
+            selectionRectangle.setStrokeWidth(3.5);
             selectionRectangle.setFill(null);
             drawingPanel.getChildren().add(selectionRectangle);
         }
@@ -138,10 +141,10 @@ public class Controller {
             startingPoint = null;
             endingPoint = null;
             newAnnotation = false;
-            TextField label = new TextField();
-            listLabel.getItems().add(label);
-            label.requestFocus();
-            label.setDisable(true);
+            TextField labelField = new TextField();
+            listLabel.getItems().add(labelField);
+            labelField.requestFocus();
+            mainPanel.setCursor(Cursor.DEFAULT);
         }
 
     }
