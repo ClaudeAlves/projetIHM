@@ -1,6 +1,8 @@
+/**
+ * @autor : Vetter Guillaume, Alves Claude-André
+ */
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane;
@@ -37,14 +39,14 @@ public class Controller {
     private boolean newAnnotation;
     private File imageFile = null;
     private File whereToSave = null;
-    private int newAnotCount = 0;
-    private Stack<Annotation> annotationStack = new Stack<Annotation>();
+    private int newAnnotationCount = 0;
+    private Stack<Annotation> annotationStack = new Stack<>();
 
-    public void exit(ActionEvent actionEvent) {
+    public void exit() {
         System.exit(0);
     }
 
-    public void importFile(ActionEvent actionEvent) {
+    public void importFile() {
         FileChooser chooser = new FileChooser();
         FileInputStream fileInStream;
         Image image;
@@ -64,7 +66,7 @@ public class Controller {
         }
     }
 
-    public void exportFile(ActionEvent actionEvent) {
+    public void exportFile() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Export image");
         if(!isEmpty(imageView)) {
@@ -79,10 +81,10 @@ public class Controller {
         }
     }
 
-    public void save(ActionEvent actionEvent) {
+    public void save() {
         if(!isEmpty(imageView)) {
             if(whereToSave == null) {
-                saveAs(actionEvent);
+                saveAs();
             } else {
                 // TODO : SAVE
             }
@@ -91,7 +93,7 @@ public class Controller {
         }
     }
 
-    public void saveAs(ActionEvent actionEvent) {
+    public void saveAs() {
         if(!isEmpty(imageView)) {
             FileChooser chooser = new FileChooser();
             chooser.setTitle("Save Image");
@@ -137,13 +139,13 @@ public class Controller {
 
     }
 
-    public void mouseReleased(MouseEvent mouseEvent){
+    public void mouseReleased(){
         if(newAnnotation) {
             startingPoint = null;
             endingPoint = null;
             newAnnotation = false;
             mainPanel.setCursor(Cursor.DEFAULT);
-            annotationStack.push(new Annotation(new TextField("NewAnnotation" + newAnotCount++), selectionRectangle, new Text()));
+            annotationStack.push(new Annotation(new TextField("NewAnnotation" + newAnnotationCount++), selectionRectangle, new Text()));
         }
 
     }
@@ -160,7 +162,7 @@ public class Controller {
         return image == null || image.isError();
     }
 
-    public void undoAnnotation(ActionEvent actionEvent) {
+    public void undoAnnotation() {
         annotationStack.pop().detach();
     }
 
@@ -183,16 +185,6 @@ public class Controller {
                 this.update();
             });
             this.update();
-        }
-
-        public Text getText() {
-            return text;
-        }
-        public Rectangle getRectangle() {
-            return rectangle;
-        }
-        public TextField getTextField() {
-            return textField;
         }
         public void update() {
             text.setText(textField.getText());

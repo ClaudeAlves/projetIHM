@@ -1,3 +1,6 @@
+/**
+ * @autor : Vetter Guillaume, Alves Claude-André
+*/
 package sample;
 
 import javafx.application.Application;
