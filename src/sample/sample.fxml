@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,14 +10,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane id="mainPane" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Pane fx:id="drawingPanel" layoutX="100.0" layoutY="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0">
+      <Pane fx:id="drawingPanel" layoutX="100.0" layoutY="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#mouseDragged" onMousePressed="#mouseClicked" onMouseReleased="#mouseReleased" prefHeight="720.0" prefWidth="1080.0">
          <children>
             <ImageView fx:id="imageView" fitHeight="720.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1600.0">
+      <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="1600.0">
         <menus>
           <Menu mnemonicParsing="false" text="Menu">
             <items>
@@ -25,9 +28,13 @@
                   <MenuItem fx:id="exitItem" mnemonicParsing="false" onAction="#exit" text="Exit" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="New Annotation" />
         </menus>
       </MenuBar>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="1341.0" layoutY="29.0" prefHeight="870.0" prefWidth="245.0" />
+      <ScrollPane fx:id="labelPane" fitToHeight="true" fitToWidth="true" layoutX="1341.0" layoutY="29.0" prefHeight="870.0" prefWidth="245.0">
+         <content>
+            <ListView fx:id="listLabel" prefHeight="200.0" prefWidth="200.0" />
+         </content></ScrollPane>
+      <Button layoutX="15.0" layoutY="850.0" mnemonicParsing="false" onAction="#setNewAnnotation" prefHeight="30.0" prefWidth="120.0" text="New Annotation" />
+      <ColorPicker fx:id="colorPicker" layoutX="150.0" layoutY="850.0" prefHeight="30.0" prefWidth="100.0" promptText="Color" />
    </children>
 </Pane>
