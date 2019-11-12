@@ -3,8 +3,6 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 
-import java;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -12,8 +10,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.awt.Point;
+
+import javafx.scene.image.Image;
 import java.io.File;
+import java.io.FileInputStream;
 
 public class Controller {
     public ImageView imageView;
@@ -24,17 +25,24 @@ public class Controller {
     private Stage stage = new Stage();
     private File currentFile = null;
 
-
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
     }
 
     public void importFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
+        FileInputStream fileInStream;
+        Image image;
         chooser.setTitle("Import image");
         currentFile = chooser.showOpenDialog(stage);
         if(currentFile != null) {
-            // TODO : OPEN THE FILE IN THE EDITING ZONE
+            try {
+                fileInStream = new FileInputStream(currentFile);
+                image = new Image(fileInStream);
+                imageView.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
 
         }
@@ -43,7 +51,7 @@ public class Controller {
     public void exportFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
         FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG","jpg");
-        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF","pdf");
+        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("BMP","bmp");
         FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF","gif");
         FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG","pnj");
         chooser.getExtensionFilters().addAll(jpegFilter, pdfFilter, gifFilter, pngFilter);
@@ -75,7 +83,7 @@ public class Controller {
 
     public void mouseClicked(MouseEvent mouseEvent){
         startingPoint = new Point((int)mouseEvent.getX(), (int)mouseEvent.getY());
-        selectionRectangle.setStroke(Color.color());
+        selectionRectangle.setStroke(Color.color(255, 0 ,0));
         drawingPanel.getChildren().add(selectionRectangle);
     }
 
