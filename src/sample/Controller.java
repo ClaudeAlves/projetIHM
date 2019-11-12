@@ -84,6 +84,7 @@ public class Controller {
             if(whereToSave == null) {
                 saveAs(actionEvent);
             } else {
+                // TODO : SAVE
             }
         } else {
             alerting("Nothing has been loaded");
@@ -174,8 +175,8 @@ public class Controller {
             this.text = text;
 
             listView.getItems().add(this.textField);
-            this.text.setX(this.rectangle.getX());
-            this.text.setY(this.rectangle.getY() - 5);
+            this.text.setX(this.rectangle.getX() + 5);
+            this.text.setY(this.rectangle.getY() + 13);
             this.text.setStroke(colorPicker.getValue());
             drawingPanel.getChildren().add(text);
             this.textField.textProperty().addListener((observable, oldValue, newValue) -> {
