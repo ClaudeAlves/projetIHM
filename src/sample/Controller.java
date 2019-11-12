@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.MouseEvent;
@@ -33,9 +34,10 @@ public class Controller {
     private Point endingPoint = new Point();
     private Rectangle selectionRectangle = new Rectangle();
     private Stage stage = new Stage();
-    private File currentFile = null;
     private ArrayList<TextField> labels = new ArrayList<>();
     private boolean newAnnotation;
+    private File imageFile = null;
+    private File whereToSave = null;
 
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
@@ -46,50 +48,58 @@ public class Controller {
         FileInputStream fileInStream;
         Image image;
         chooser.setTitle("Import image");
-        currentFile = chooser.showOpenDialog(stage);
-        if(currentFile != null) {
+        imageFile = chooser.showOpenDialog(stage);
+        if(imageFile != null) {
             try {
-                fileInStream = new FileInputStream(currentFile);
+                fileInStream = new FileInputStream(imageFile);
                 image = new Image(fileInStream);
                 imageView.setImage(image);
+                whereToSave = null;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-
+            alerting("Unable to perform import !");
         }
     }
 
     public void exportFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
-        FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG","jpg");
-        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("BMP","bmp");
-        FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF","gif");
-        FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG","pnj");
-        chooser.getExtensionFilters().addAll(jpegFilter, pdfFilter, gifFilter, pngFilter);
         chooser.setTitle("Export image");
-        currentFile = chooser.showSaveDialog(stage);
-        if(currentFile != null) {
-            // TODO : SAVE THE IMAGE IN THE GOOD FORMAT
-        } else {
+        if(imageFile != null) {
+            whereToSave = chooser.showSaveDialog(stage);
+            if (whereToSave != null) {
 
+            } else {
+                alerting("Problem exporting file !");
+            }
+        } else {
+            alerting("Nothing to export !");
         }
     }
 
     public void save(ActionEvent actionEvent) {
-        if(currentFile == null) {
-            saveAs(actionEvent);
+        if(whereToSave == null) {
+            if(!isEmpty(imageView)) {
+                saveAs(actionEvent);
+            } else {
+
+            }
         } else {
-            // TODO : SAVE THE IMAGE IN THE FILE
+            // TODO : SAVE
         }
     }
 
     public void saveAs(ActionEvent actionEvent) {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Save Image");
-        currentFile = chooser.showSaveDialog(stage);
-        if(currentFile != null) {
-            // TODO : SAVE THE IMAGE IN THE FILE
+        if(!isEmpty(imageView)) {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Save Image");
+            whereToSave = chooser.showSaveDialog(stage);
+            if (whereToSave != null) {
+                // TODO : SAVE
+            }
+        } else {
+            alerting("Nothing has been loaded");
         }
     }
 
@@ -131,5 +141,17 @@ public class Controller {
             listLabel.getItems().add(label);
             label.requestFocus();
         }
+    }
+
+    private void alerting(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
+
+    public static boolean isEmpty(ImageView imageView) {
+        Image image = imageView.getImage();
+        return image == null || image.isError();
     }
 }
