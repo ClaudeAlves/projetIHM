@@ -12,12 +12,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
 
 import javafx.scene.image.Image;
+
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -137,11 +139,8 @@ public class Controller {
             startingPoint = null;
             endingPoint = null;
             newAnnotation = false;
-            TextField labelField = new TextField();
-            labelField.requestFocus();
             mainPanel.setCursor(Cursor.DEFAULT);
-            Annotation temp = new Annotation(new TextField("NewAnnotation"), selectionRectangle, new Label());
-            temp.update();
+            Annotation temp = new Annotation(new TextField("NewAnnotation"), selectionRectangle, new Text());
         }
 
     }
@@ -161,19 +160,24 @@ public class Controller {
     private class Annotation {
         private TextField textField;
         private Rectangle rectangle;
-        private Label label;
+        private Text text;
 
-        Annotation(TextField textField, Rectangle rectangle, Label label) {
+        Annotation(TextField textField, Rectangle rectangle, Text text) {
             this.textField = textField;
             this.rectangle = rectangle;
-            this.label = label;
+            this.text = text;
 
             listView.getItems().add(this.textField);
-            this.textField.requestFocus();
+
+
+            this.textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                this.update();
+            });
+            this.update();
         }
 
-        public Label getLabel() {
-            return label;
+        public Text getText() {
+            return text;
         }
         public Rectangle getRectangle() {
             return rectangle;
@@ -182,7 +186,7 @@ public class Controller {
             return textField;
         }
         public void update() {
-            label.setText(textField.getText());
+            text.setText(textField.getText());
         }
         public void detach() {
             listView.getItems().remove(this.textField);
