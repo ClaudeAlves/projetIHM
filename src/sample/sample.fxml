@@ -7,10 +7,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <ImageView fitHeight="372.0" fitWidth="479.0" layoutX="-4.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-      <MenuBar prefHeight="29.0" prefWidth="600.0">
+      <ImageView fx:id="imageView" fitHeight="720.0" fitWidth="1080.0" layoutX="100.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1600.0">
         <menus>
           <Menu mnemonicParsing="false" text="Menu">
             <items>
@@ -24,6 +24,6 @@
             <Menu mnemonicParsing="false" text="New Annotation" />
         </menus>
       </MenuBar>
-      <ScrollPane layoutX="477.0" layoutY="29.0" prefHeight="372.0" prefWidth="123.0" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="1341.0" layoutY="29.0" prefHeight="870.0" prefWidth="245.0" />
    </children>
 </Pane>
