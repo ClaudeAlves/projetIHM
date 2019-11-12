@@ -26,6 +26,11 @@ public class Controller {
 
     public void exportFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
+        FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG","jpg");
+        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF","pdf");
+        FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF","gif");
+        FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG","pnj");
+        chooser.getExtensionFilters().addAll(jpegFilter, pdfFilter, gifFilter, pngFilter);
         chooser.setTitle("Export image");
         currentFile = chooser.showSaveDialog(stage);
         if(currentFile != null) {
