@@ -4,21 +4,34 @@ import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.io.File;
+import java.io.FileInputStream;
 
 public class Controller {
-    private Stage stage;
+    private Stage stage = new Stage();
     private File currentFile = null;
+    private ImageView imageView;
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
     }
 
     public void importFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
+        FileInputStream fileInStream;
+        Image image;
         chooser.setTitle("Import image");
         currentFile = chooser.showOpenDialog(stage);
         if(currentFile != null) {
-            // TODO : OPEN THE FILE IN THE EDITING ZONE
+            try {
+                fileInStream = new FileInputStream(currentFile);
+                image = new Image(fileInStream);
+                imageView = new ImageView(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
 
         }
@@ -27,7 +40,7 @@ public class Controller {
     public void exportFile(ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
         FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG","jpg");
-        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF","pdf");
+        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("BMP","bmp");
         FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF","gif");
         FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG","pnj");
         chooser.getExtensionFilters().addAll(jpegFilter, pdfFilter, gifFilter, pngFilter);
