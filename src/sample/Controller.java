@@ -3,7 +3,6 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -22,6 +21,7 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Stack;
 
 public class Controller {
     public ImageView imageView;
@@ -37,6 +37,8 @@ public class Controller {
     private boolean newAnnotation;
     private File imageFile = null;
     private File whereToSave = null;
+    private int newAnotCount = 0;
+    private Stack<Annotation> annotationStack = new Stack<Annotation>();
 
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
@@ -140,7 +142,7 @@ public class Controller {
             endingPoint = null;
             newAnnotation = false;
             mainPanel.setCursor(Cursor.DEFAULT);
-            Annotation temp = new Annotation(new TextField("NewAnnotation"), selectionRectangle, new Text());
+            annotationStack.push(new Annotation(new TextField("NewAnnotation" + newAnotCount++), selectionRectangle, new Text()));
         }
 
     }
@@ -157,6 +159,10 @@ public class Controller {
         return image == null || image.isError();
     }
 
+    public void undoAnnotation(ActionEvent actionEvent) {
+        annotationStack.pop().detach();
+    }
+
     private class Annotation {
         private TextField textField;
         private Rectangle rectangle;
@@ -168,8 +174,10 @@ public class Controller {
             this.text = text;
 
             listView.getItems().add(this.textField);
-
-
+            this.text.setX(this.rectangle.getX());
+            this.text.setY(this.rectangle.getY() - 5);
+            this.text.setStroke(colorPicker.getValue());
+            drawingPanel.getChildren().add(text);
             this.textField.textProperty().addListener((observable, oldValue, newValue) -> {
                 this.update();
             });
@@ -190,6 +198,8 @@ public class Controller {
         }
         public void detach() {
             listView.getItems().remove(this.textField);
+            drawingPanel.getChildren().remove(this.text);
+            drawingPanel.getChildren().remove(this.rectangle);
         }
 
     }
