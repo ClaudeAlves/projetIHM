@@ -104,7 +104,9 @@ public class Controller {
     }
 
     public void setNewAnnotation(){
-        newAnnotation = true;
+        if(imageFile != null) {
+            newAnnotation = true;
+        }
     }
 
     public void mouseClicked(MouseEvent mouseEvent){
@@ -140,7 +142,9 @@ public class Controller {
             TextField label = new TextField();
             listLabel.getItems().add(label);
             label.requestFocus();
+            label.setDisable(true);
         }
+
     }
 
     private void alerting(String message) {
